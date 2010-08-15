@@ -46,29 +46,30 @@ module Graticule #:nodoc:
       end
     
       class Placemark
-        #include HappyMapper
-	#tag 'Placemark'
-        #element :coordinates, String, :deep => true
-        #has_one :address, Address
+        include HappyMapper
+	include ActiveSupport
+	tag 'Placemark'
+        element :coordinates, String, :deep => true
+        has_one :address, Address
       
-        #attr_reader :longitude, :latitude
-        #delegate :accuracy, :to => :address, :allow_nil => true
+        attr_reader :longitude, :latitude
+        delegate :accuracy, :to => :address, :allow_nil => true
         
-        #with_options :deep => true, :namespace => 'urn:oasis:names:tc:ciq:xsdschema:xAL:2.0' do |map|
-        #  map.element :street,      String, :tag => 'ThoroughfareName'
-        #  map.element :locality,    String, :tag => 'LocalityName'
-        #  map.element :region,      String, :tag => 'AdministrativeAreaName'
-        #  map.element :postal_code, String, :tag => 'PostalCodeNumber'
-        #  map.element :country,     String, :tag => 'CountryNameCode'
-        #end
+        with_options :deep => true, :namespace => 'urn:oasis:names:tc:ciq:xsdschema:xAL:2.0' do |map|
+          map.element :street,      String, :tag => 'ThoroughfareName'
+          map.element :locality,    String, :tag => 'LocalityName'
+          map.element :region,      String, :tag => 'AdministrativeAreaName'
+          map.element :postal_code, String, :tag => 'PostalCodeNumber'
+          map.element :country,     String, :tag => 'CountryNameCode'
+        end
       
-        #def coordinates=(coordinates)
-        #  @longitude, @latitude, _ = coordinates.split(',').map { |v| v.to_f }
-        #end
+        def coordinates=(coordinates)
+          @longitude, @latitude, _ = coordinates.split(',').map { |v| v.to_f }
+        end
       
-        #def precision
-        #  PRECISION[accuracy] || :unknown
-        #end
+        def precision
+          PRECISION[accuracy] || :unknown
+        end
       end
     
       class Response
