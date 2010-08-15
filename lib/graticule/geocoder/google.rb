@@ -47,7 +47,6 @@ module Graticule #:nodoc:
     
       class Placemark
         include HappyMapper
-	include ActiveSupport
 	tag 'Placemark'
         element :coordinates, String, :deep => true
         has_one :address, Address
@@ -55,7 +54,7 @@ module Graticule #:nodoc:
         attr_reader :longitude, :latitude
         delegate :accuracy, :to => :address, :allow_nil => true
         
-        with_options :deep => true, :namespace => 'urn:oasis:names:tc:ciq:xsdschema:xAL:2.0' do |map|
+        ActiveSupport.with_options :deep => true, :namespace => 'urn:oasis:names:tc:ciq:xsdschema:xAL:2.0' do |map|
           map.element :street,      String, :tag => 'ThoroughfareName'
           map.element :locality,    String, :tag => 'LocalityName'
           map.element :region,      String, :tag => 'AdministrativeAreaName'
