@@ -54,7 +54,7 @@ module Graticule #:nodoc:
         attr_reader :longitude, :latitude
         delegate :accuracy, :to => :address, :allow_nil => true
         
-        ActiveSupport.with_options :deep => true, :namespace => 'urn:oasis:names:tc:ciq:xsdschema:xAL:2.0' do |map|
+        with_options :deep => true, :namespace => 'urn:oasis:names:tc:ciq:xsdschema:xAL:2.0' do |map|
           map.element :street,      String, :tag => 'ThoroughfareName'
           map.element :locality,    String, :tag => 'LocalityName'
           map.element :region,      String, :tag => 'AdministrativeAreaName'
