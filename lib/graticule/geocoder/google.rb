@@ -47,6 +47,7 @@ module Graticule #:nodoc:
     
       class Placemark
         include HappyMapper
+	include ActiveSupport::CoreExt::Object
         tag 'Placemark'
         element :coordinates, String, :deep => true
         has_one :address, Address
